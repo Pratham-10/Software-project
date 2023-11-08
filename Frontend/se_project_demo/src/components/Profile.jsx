@@ -1,17 +1,14 @@
 import React, { useState,useEffect } from 'react';
 import './Profile.css';
-import { userData,setProfileData,useUser } from './UserContext';
+import {useUser } from './UserContext';
 const Profile = () => {
-    const { isdata } = useUser();
-    const {userData} = useUser();
+    const {userInfo} = useUser();
     const [profileData, setProfileData] = useState();
 
-    console.log(userData);
+    useEffect(()=>{
+      setProfileData(userInfo);
+    },[]);
     
-  
-
-
-
   const handleChange = (field, value) => {
     setProfileData((prevData) => ({
       ...prevData,
@@ -20,7 +17,6 @@ const Profile = () => {
   };
 
   const handleSave = () => {
-    // Implement your save logic here
     console.log('Saving profile data:', profileData);
   };
 

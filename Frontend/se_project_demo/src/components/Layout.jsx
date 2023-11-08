@@ -1,18 +1,33 @@
 import Button from "./Button";
-import { useEffect,useState } from "react";
+import { useEffect } from "react";
 import './Layout.css'
-import {setUserInfo,useUser} from './UserContext';
+import {useUser} from './UserContext';
+import {useNavigate} from 'react-router-dom';
 const Layout = () => {
-  const { setUserInfo } = useUser();
-    const {userData} = useUser();
+  const navigate = useNavigate();
+  const navigatetoprovide =()=>{
+      navigate('/Provideride');
+  }
+  
+  const navigatetobook = () => {
+  navigate('/Bookride');
+  }
+    const {userInfo} = useUser();
   useEffect(()=>{
-    
-    console.log(userData);
-  },[userData])
+    console.log("context data:",userInfo);
+  },[userInfo])
   return (
     <>
     <div className="layout">
-       <Button></Button>  
+    <div className="centered-container-provide">
+      <button  onClick={navigatetoprovide} className="centered-button-provide">Provide a ride</button>
+
+    
+
+      </div>
+      <div className="centered-container-book">
+      <button onClick={navigatetobook} className="centered-button-book">Book a ride</button>
+    </div> 
     </div>
      </>
 

@@ -1,0 +1,33 @@
+.detail{
+    width: 40%;
+    margin-left: auto;
+    margin-top: 5px;
+    margin-right: auto;
+
+}
+
+.submit{
+    width: 20%;
+    margin-left: auto;
+    margin-top: 5px;
+    margin-bottom: 50px;
+    margin-right: auto;
+}
+
+select{
+    width: 100%;
+}
+.detail-licence{
+    width: 40%;
+    margin-left: auto;
+    margin-top: 50px;
+    margin-right: auto;
+}
+
+.licence-container{
+    margin-top: 15px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid black;
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'; 
+import React from 'react'; 
 import './App.css';
 import RegistrationForm from './components/RegistrationForm';
 import Layout from './components/Layout';
@@ -8,8 +8,11 @@ import Demo from './components/Demo';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Provideride from './components/Provideride';
 import Profile from './components/Profile';
-import { UserProvider,UserContext,context } from './components/UserContext';
-import Mapview from './components/Mapview';
+import { UserProvider} from './components/UserContext';
+import Passengerlist from './components/Passengerlist';
+import Bookride from './components/Bookride';
+import { Rideprovider } from './components/Ridecontext';
+import Ridelist from './components/Ridelist';
 
 
 function App() {
@@ -27,21 +30,23 @@ function App() {
       <div>
       <BrowserRouter>
       <UserProvider>
-      
+        <Rideprovider>      
            
       <div className='nav'>
       <Navbar></Navbar>
     </div>
       <Routes>
-     <Route path="/" Component={Login}/>
-     <Route path="/RegistrationForm" Component={RegistrationForm}/>
+     <Route path="/" element={<Login/>}/>
+     <Route path="/RegistrationForm" element={<RegistrationForm/>}/>
      <Route path="/Layout" element={<Layout/>}></Route>
-    <Route path="/Provideride" Component={Provideride}></Route>
-    <Route path = "/Demo" Component={Demo}></Route>
-    <Route path = "/Profile" Component={Profile}></Route>
-    <Route path ="/Mapview" Component={Mapview}></Route>
+    <Route path="/Provideride" element={<Provideride/>}></Route>
+    <Route path = "/Demo" element={<Demo/>}></Route>
+    <Route path = "/Profile" element={<Profile/>}></Route>
+    <Route path = "/Passengerlist" element={<Passengerlist/>}></Route>
+    <Route path = "/Bookride" element={<Bookride/>}></Route>
+    <Route path = "/Ridelist" element={<Ridelist/>}></Route>
       </Routes>
-       
+      </Rideprovider>
       </UserProvider>
       </BrowserRouter>
 </div>

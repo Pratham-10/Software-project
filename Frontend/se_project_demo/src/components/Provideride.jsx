@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './Provideride.css';
+import { useUser } from "./UserContext";
 
 const Provideride = () => {
     const [islicence, setlicence] = useState('');
@@ -12,6 +13,9 @@ const Provideride = () => {
     const [isfrom, setfrom] = useState('');
     const [isto, setto] = useState('');
 
+    const {userInfo} = useUser();
+    
+
     const [errors, setErrors] = useState({
         licence: '',
         seat: '',
@@ -22,7 +26,8 @@ const Provideride = () => {
         from: '',
         to: '',
     });
-
+    
+ 
     const navigate = useNavigate();
 
     const handleride = () => {
@@ -37,18 +42,53 @@ const Provideride = () => {
             to: isto ? '' : 'Please enter the destination location.',
         };
 
-        // Update errors state
         setErrors(newErrors);
 
-        // Check if there are any errors
         if (Object.values(newErrors).some((error) => error !== '')) {
             return;
         }
+        const ridedetail = { 
+            licence: islicence,
+            seat: isseat,
+            carno: iscarno,
+            carname: iscarname,
+            cartype: iscartype,
+            charge: ischarge,
+            from: isfrom,
+            to: isto,
+            driver_username: userInfo.username,
+        }
 
-        // Your navigation logic here
-        navigate('/Mapview');
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(ridedetail)
+        };
+
+        fetch("http://localhost:3300/ridedetails", requestOptions)
+        .then((res) => {
+          console.log("resse",res);
+      
+        navigate('/Passengerlist');
+        
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
 
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            handleride();
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyPress);
+        return () => {
+            document.removeEventListener('keydown', handleKeyPress);
+        };
+    }, []);
     return (
         <div className="licence-container">
             <div className="detail-licence">
@@ -112,8 +152,10 @@ const Provideride = () => {
             </div>
 
             <div className="submit">
-                <button onClick={handleride}>Submit</button>
+                <button onClick={handleride} >Submit</button>
             </div>
+
+            
         </div>
     );
 }

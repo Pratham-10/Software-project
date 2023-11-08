@@ -1,6 +1,6 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState,useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {setUserInfo,useUser} from './UserContext';
+import {useUser} from './UserContext';
 import './Login.css';
 
 const Login = () => {
@@ -8,21 +8,9 @@ const Login = () => {
   const [passwordin, setPasswordin] = useState('');
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const[isdata,setdata]=useState([]);
   const { setUserInfo } = useUser();
-const {userData} = useUser();
   const navigate = useNavigate();
-
-  // const setUserData = (data) => {
-  //   console.log('Setting user data:', data);
-  //   setUserInfo(data);
-  // };
-
-  // const [infoUser, setInfoUser] = useState();
-
   
-
-
   const handleLogin = async () => {
     setIsLoading(true);
   
@@ -50,15 +38,29 @@ const {userData} = useUser();
     }
   };
 
+  const handleloginKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      console.log("pass",passwordin);
+      console.log(usernamein);
+        handleLogin();
+    }
+};
+
+useEffect(() => {
+    document.addEventListener('keydown', handleloginKeyPress);
+    return () => {
+        document.removeEventListener('keydown', handleloginKeyPress);
+    };
+}, []);
   return (
    
     <div className='final'>
       <h2>Login</h2>
       <label>Username: </label>
-      <input type="text" value={usernamein} onChange={(e) => setUsernamein(e.target.value)} />
+      <input type="text" value={usernamein} onChange={(e) => {setUsernamein(e.target.value)}} />
 
       <label>Password: </label>
-      <input type="password" value={passwordin} onChange={(e) => setPasswordin(e.target.value)} />
+      <input type="password" value={passwordin} onChange={(e) => {setPasswordin(e.target.value)}} />
 
       {error && <div className="error-message" style={{color: 'red'}}>{error}</div>}
 

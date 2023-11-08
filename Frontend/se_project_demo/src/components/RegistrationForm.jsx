@@ -13,6 +13,8 @@ const RegistrationForm = () => {
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
+
+  
   
 
   const [errors, setErrors] = useState({
@@ -82,17 +84,22 @@ const RegistrationForm = () => {
     };
     fetch("http://localhost:3300/newuser", requestOptions)
   .then((res) => {
-    console.log(userData.username);
-    console.log(res);
+    console.log("resse",res);
+    console.log("stat",res.status);
+    if(!res.ok){
+    const error = {
+      username : "Username is taken",
+    }
+    setErrors(error);
+      return;
+    }
+
     navigate('/');
     // Handle the response here if needed
   })
   .catch((error) => {
     console.error("Error:", error);
   });
-
-    // Send userData to the server for further processing
-    console.log('Sending data to the server:', userData);
   };
 
   return (

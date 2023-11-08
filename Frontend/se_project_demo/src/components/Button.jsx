@@ -1,19 +1,21 @@
 import React from 'react';
 import './Button.css';
-import { Navigate, useNavigate ,BrowserRouter,Route,Routes} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 const Button = () => {
     const navigate = useNavigate();
-const navigation =()=>{
+const navigatetoprovide =()=>{
     navigate('/Provideride');
 }
 
+const navigatetobook = () => {
+navigate('/Bookride');
+}
+
   return (
-    <div className="centered-container">
-      <button  onClick={navigation} className="centered-button">Provide a ride</button>
-      <button className="centered-button">Book a ride</button>
-     
-    </div>
+  <h1>
+    hello;
+  </h1>
   );
 };
 
