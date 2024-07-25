@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  dob: Date,
+  dob: String,
   phone: {
     type: String,
     validate: {
@@ -25,6 +25,13 @@ const userSchema = new mongoose.Schema({
   },
   email: String,
   gender: String,
-  totalKmTravelled: Number,
+  totalKmTravelled: {
+    type:Number,
+    default:0
+  },
+  wallet:{
+    type:Number,
+    default:0
+  }
 });
 module.exports = mongoose.model("User", userSchema);

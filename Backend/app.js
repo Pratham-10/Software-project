@@ -1,7 +1,7 @@
 // import node modules
 const express = require("express");
 const cors = require("cors");
-const dotenv = require('dotenv').config({path : '../.env'});
+const dotenv = require('dotenv').config({path : './.env'});
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser'); 
 
@@ -16,17 +16,22 @@ const adminRoutes = require("./routes/adminRoutes");
 // const tripRoutes = require('./routes/tripRoutes'); 
 //configure env variables
 const PORT = 3300;
-const MONGO_URI = process.env.uri;
+const MONGO_URI = process.env.MONGO_URI;
 //using global middleware
 app.use(cors());
 
-app.use(bodyParser.json()) // for parsing application/json
+// for parsing incoming data to json
+app.use(bodyParser.json()) 
+
+//for parsing URL encoded data(form data) to json 
 app.use(bodyParser.urlencoded({ extended: true }))
 
 //setting up routes
 app.use(userRoutes);
 app.use(detailRoutes);
 app.use(adminRoutes);
+
+
 //start server
 mongoose
   .connect(MONGO_URI)
